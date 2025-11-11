@@ -18,7 +18,7 @@ import { DoughnutChart } from "./DoughnoutChart";
 
 const labels = watchlist.map((subArray) => subArray["name"]);
 
-export default function WatchList() {
+export default function CreateList() {
   const data = {
     labels,
     datasets: [

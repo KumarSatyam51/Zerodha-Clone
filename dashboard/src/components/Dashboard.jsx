@@ -9,13 +9,13 @@ import Orders from "./Orders";
 import Positions from "./Positions";
 import Summary from "./Summary";
 import { GeneralContextProvider } from "./GeneralContext";
-import WatchList from "./WatchList.jsx";
+import CreateList from "./CreateList.jsx";
 
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <GeneralContextProvider>
-        <WatchList />
+        <CreateList />
       </GeneralContextProvider>
       <div className="content">
         <Routes>
