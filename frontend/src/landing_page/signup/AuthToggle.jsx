@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SignupForm from "./SignupForm";
-import Login from "./Login";
+import Login from "./login";
 import "./signup.css"; 
 
 const AuthToggle = () => {
