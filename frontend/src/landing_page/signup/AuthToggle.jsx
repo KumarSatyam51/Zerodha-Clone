@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SignupForm from "./SignupForm";
-import Login from "./login";
-import "./signup.css";
+import Login from "./Login";
+import "./signup.css"; 
 
 const AuthToggle = () => {
   const [currentView, setCurrentView] = useState('signup');
