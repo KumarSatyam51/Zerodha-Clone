@@ -1,0 +1,170 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* --- Theme Wrapper & Centering (Background Image Applied Here) --- */
+.dark-theme-wrapper {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    
+    /* Background Image Styling */
+    background-image: url('media/homeHero.png'); 
+    background-size: cover; 
+    background-position: center; 
+    /* The 'fixed' property is removed/changed to 'scroll' (default behavior) */
+    
+    min-height: calc(100vh - 60px - 40px); 
+    color: #333333; 
+    padding: 20px; 
+    box-sizing: border-box; 
+    /* Adding a subtle dark overlay to ensure white form and text are readable */
+    position: relative;
+    z-index: 1; /* Ensure content is above the pseudo-element overlay */
+}
+
+/* Optional: Overlay to darken the background image slightly for contrast */
+.dark-theme-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* 40% opaque black overlay */
+    z-index: -1;
+}
+
+/* --- Form Container (The Box) --- */
+.dark-auth-container {
+    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white form background */
+    border-radius: 12px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow to make it pop */
+    width: 100%;
+    max-width: 420px; 
+    padding: 40px;
+    box-sizing: border-box; 
+    text-align: center; 
+}
+
+/* --- Typography (Adjusted for contrast over white form on dark background) --- */
+.dark-auth-title {
+    font-size: 2.2rem; 
+    font-weight: 700;
+    color: #2c3e50; 
+    margin-bottom: 10px; 
+    letter-spacing: 0.5px; 
+}
+
+.dark-auth-subtitle {
+    font-size: 1rem;
+    color: #7f8c8d; 
+    margin-bottom: 30px;
+}
+
+/* --- Input Fields --- */
+.input-group {
+    margin-bottom: 15px; 
+}
+
+.dark-auth-input {
+    width: 100%;
+    padding: 14px 16px; 
+    background-color: #ffffff; 
+    border: 1px solid #dcdcdc; 
+    border-radius: 8px; 
+    font-size: 1.05rem;
+    color: #333333; 
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dark-auth-input::placeholder {
+    color: #b0b0b0; 
+}
+
+.dark-auth-input:focus {
+    border-color: #6a5acd; 
+    box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.1); 
+}
+
+.input-row {
+    display: flex;
+    gap: 15px; 
+    margin-bottom: 15px;
+}
+
+.input-row .input-group {
+    flex: 1; 
+    margin-bottom: 0;
+}
+
+/* --- Button Styling --- */
+.dark-action-button {
+    width: 100%;
+    padding: 15px; 
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem; 
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px; 
+    margin-bottom: 30px; 
+}
+
+.dark-primary-button {
+    background-color: #6a5acd; 
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(106, 90, 205, 0.4); 
+}
+
+.dark-primary-button:hover {
+    background-color: #5b4bab; 
+    box-shadow: 0 6px 18px rgba(106, 90, 205, 0.5);
+    transform: translateY(-1px); 
+}
+
+.dark-primary-button:active {
+    transform: translateY(0);
+}
+
+/* --- Footer & Links --- */
+.dark-auth-footer-link-container {
+    padding-top: 20px; 
+    border-top: 1px solid #f0f0f0; 
+    margin-top: 20px; 
+}
+
+.dark-footer-text {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+}
+
+.dark-link {
+    color: #6a5acd; 
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.dark-link:hover {
+    text-decoration: underline;
+}
+
+.as-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: inherit;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.dark-login-footer {
+    justify-content: center;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}

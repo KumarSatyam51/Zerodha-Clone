@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './App.css';
 import HomePage from './landing_page/home/HomePage';
-import Signup from './landing_page/signup/Signup';
+import Signup from "./landing_page/signup/AuthToggle"; 
 import AboutPage from './landing_page/about/AboutPage';
 import ProductPage from './landing_page/products/ProductPage';
 import PricingPage from './landing_page/pricing/PricingPage';
@@ -16,11 +16,13 @@ import Supportpage from './landing_page/support/Supportpage';
 
 
 
+
 // const root = ReactDOM.createRoot(document.getElementById("root"));  // ✅ ReactDOM not ReactDom
 // root.render(
 //   <App />
 // );
 function App(){
+  
   return (
     <BrowserRouter>
     <Navbar />

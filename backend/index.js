@@ -1,12 +1,14 @@
 require('dotenv').config();
 
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const bodyParser= require("body-parser");
 const cors = require("cors");
 
 const HoldingsModel = require("./model/HoldingsModel");
 const PositionsModel = require('./model/PositionsModel');
+const UserModel = require('./model/UserModel');
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGO_URL;
@@ -15,7 +17,12 @@ console.log(PORT)
 const app = express();
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
 app.use(bodyParser.json());
 // app.get('/addHoldings', async (req, res) => {
 //   console.log('hii there from the addHoldings');
@@ -121,6 +128,110 @@ app.get('/allPositions',async(req,res)=>{
     res.status(500).send("Error fetching Positions");
   }
 });
+
+
+
+
+app.post("/signup", async (req, res) => {
+    try {
+        const { firstName, lastName, email, password, confirmPassword } = req.body;
+        
+        if (!email || !password || !firstName || !lastName || !confirmPassword) {
+            return res.status(400).json({ 
+                msg: "All fields are required!" 
+            });
+        }
+
+        if (password !== confirmPassword) {
+            return res.status(400).json({
+                msg: "Password and Confirm Password do not match."
+            });
+        }
+        
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ 
+                msg: "User already exists!" 
+            });
+        }
+        
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
+        const newUser = new UserModel({
+            firstName: firstName, 
+            lastName: lastName,   
+            email: email,
+            password: hashedPassword 
+        });
+
+        await newUser.save();
+
+        return res.status(201).json({ 
+            msg: "User successfully registered!",
+            user: {
+                id: newUser._id,
+                email: newUser.email,
+                firstName: newUser.firstName
+            }
+        });
+
+    } catch (e) {
+        console.error("Signup error:", e.stack); 
+        
+        if (e.name === 'ValidationError') {
+            return res.status(400).json({ msg: e.message });
+        }
+        
+        return res.status(500).json({
+            msg: "Internal server error during registration."
+        });
+    }
+});
+
+app.post("/signin", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                msg: "Email and password are required."
+            });
+        }
+
+        const user = await UserModel.findOne({ email }).select('+password'); 
+
+        if (!user) {
+            return res.status(401).json({
+                msg: "Invalid credentials."
+            });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(401).json({
+                msg: "Invalid credentials."
+            });
+        }
+
+        return res.status(200).json({
+            msg: "Login successful!",
+            user: {
+                id: user._id,
+                email: user.email,
+                firstName: user.firstName,
+            }
+        });
+
+    } catch (e) {
+        console.error("Login error:", e.stack);
+        return res.status(500).json({
+            msg: "Internal server error during login."
+        });
+    }
+});
+
 
 async function start() {
   try {
